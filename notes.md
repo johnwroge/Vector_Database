@@ -35,6 +35,7 @@ Distributing data across multiple machines. SQL databases do this but require mo
 
 <!-- Setting up vector database -->
 
+you can clone repo, but I followed the steps to build everything
 ```
 mkdir weaviate-vector-database && cd weaviate-vector-database
 npm init -y && npm install dotenv openai weaviate-ts-client
@@ -69,5 +70,22 @@ also uses OpenAI Ada model to vectorize data
 
 <!-- Migrating data -->
 
+We have to import data from separate library here into src/data.js
+
+https://github.com/ovieokeh/pinecone-ai-vector-database/blob/main/src/data.js
+
+added migrate function is db.js
 
 <!-- Adding documents -->
+
+time to vectorize and upload documents
+
+1. raw test string is converted to vectors using Ada model
+2. converted vectors are uploaded to Weaviate database
+
+<!-- Deleting Documents -->
+
+deletealldocuments can be used for this smaller data size
+
+
+<!-- Adding Querying Functions to DB -->
