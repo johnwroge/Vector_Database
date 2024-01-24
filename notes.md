@@ -33,7 +33,7 @@ Distributing data across multiple machines. SQL databases do this but require mo
 2. Create cluster in free tier with authentication enabled
 3. Get Weaviate URL and Weaviate API key
 
-<!-- Start building -->
+<!-- Setting up vector database -->
 
 ```
 mkdir weaviate-vector-database && cd weaviate-vector-database
@@ -58,3 +58,16 @@ Need functionality to:
 3. Query the most similar items
 
 4. and a main function that performs these operations
+
+<!-- Setup Client -->
+
+in src directory created database.js file. 
+
+creates a connection to weaviate and a client
+
+also uses OpenAI Ada model to vectorize data
+
+<!-- Migrating data -->
+
+
+<!-- Adding documents -->
