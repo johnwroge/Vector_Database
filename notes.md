@@ -89,3 +89,108 @@ deletealldocuments can be used for this smaller data size
 
 
 <!-- Adding Querying Functions to DB -->
+
+Added querying functions
+
+'''migrate our data so we can query it in the next section. Open your terminal and run npm run start "migrate".'''
+
+Ran into issue and had to update openai and change how env variable was used
+
+```npm exec openai migrate```
+
+https://github.com/openai/openai-node/discussions/217
+
+
+```javascript
+// Old
+import { Configuration, OpenAIApi } from "openai";
+
+const configuration = new Configuration({
+  apiKey: process.env.OPENAI_API_KEY,
+});
+const openai = new OpenAIApi(configuration);
+
+// New
+import OpenAI from 'openai';
+
+const openai = new OpenAI({
+  apiKey: process.env.OPENAI_API_KEY // This is also the default, can be omitted
+});
+```
+
+
+<!-- Combining Vector Embeddings and AI -->
+
+Words and phrases are represented as high dimensional vectors which can be compared to get
+meanings and relationships. 
+
+Vector database basically acts as a librarian for the AI model and allows for quick retrieval of this information. 
+
+<!-- AI Model Setup -->
+
+Created model.js file (referenced as data.js in tutorial) used to interact with open ai
+
+<!-- Querying our data -->
+
+index.js file created to query vector database and then map over returned documents to send to open ai 
+for completion
+
+```
+The query is sent to your Weaviate vector database where it is vectorized, compared to other similar vectors, and returns the 50 most similar ones based on their text. This context data is then formatted and sent along with your query to OpenAI’s GPT-3.5 model where it is processed and a response is generated.
+
+```
+
+
+<!-- Testing our query -->
+
+Ran into multiple problem with differences in api key names throughout files (single strings, no <>). Also had to run this command multiple times because the files weren't added to the database
+
+``` npm run start "migrate" ```
+
+```npm run start "query" "what are the 3 most impressive achievements of humanity in the story?"```
+
+
+
+johns-mbp:weaviate-vector-database johnwroge$ npm run start "migrate"
+
+> weaviate-vector-database@1.0.0 start
+> node src/index.js migrate
+
+(node:89080) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+schema already exists
+Inserting documents
+{
+  date: '2400',
+  title: 'Birth of Zephyr',
+  text: 'Zephyr, the first of the Evolved Humans, known for his wisdom and cybernetic enhancements, is born. He would go on to become a major figure in the human evolution movement, propelling humanity into a new era of intellectual growth and exploration.',
+  category: 'BEING'
+}
+...
+{
+  date: '4910',
+  title: "The Ethereal Guardian's Intervention",
+  text: 'The Ethereal Guardian intervenes to save a dying star from supernova in its Sanctuary, offering a new understanding of protection and preservation of life.',
+  category: 'EVENT'
+}
+{
+  date: '5010',
+  title: 'The Nexus Initiative',
+  text: 'The Nexus initiates a project to connect all lifeforms across the universe from its Hub, redefining the concepts of unity, life interconnectivity, and collective consciousness.',
+  category: 'EVENT'
+}
+johns-mbp:weaviate-vector-database johnwroge$ npm run start "query" "what are the 3 most impressive achievements of humanity in the story?"
+
+> weaviate-vector-database@1.0.0 start
+> node src/index.js query what are the 3 most impressive achievements of humanity in the story?
+
+Querying database
+(node:89105) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+Based on the given context, the three most impressive achievements of humanity are:
+
+1. Discovery of Gaia: The sentient planet Gaia, discovered in 3605, challenges previous definitions of life and intelligence. Its existence nurtures an entire ecosystem of evolved lifeforms and offers unparalleled insights into the nature of life and intelligence. This discovery expands humanity's understanding of sentient existence and marks a significant achievement in exploring the boundaries of life.
+
+2. First Contact with Gaia: In 3610, humanity makes first contact with Gaia, further expanding our understanding of life and intelligence. This contact challenges previous definitions and expands our understanding of sentient existence. The ability to establish communication and interact with a sentient planet showcases humanity's progress in exploring and connecting with other forms of intelligent life.
+
+3. Luminary Sol's Theories: Luminary Sol, who arises in 2750, is an immortal human with enhanced cognitive abilities. Her theories on quantum physics become a catalyst for interstellar travel and a new phase of human expansion. Her groundbreaking ideas revolutionize the understanding of the universe, opening up new possibilities in space exploration and theoretical physics. Luminary Sol's theories represent a remarkable achievement in pushing the boundaries of scientific knowledge and advancing human understanding of the cosmos.

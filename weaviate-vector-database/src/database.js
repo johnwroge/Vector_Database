@@ -1,7 +1,7 @@
 
 import weaviate, { ApiKey } from "weaviate-ts-client";
 import { config } from "dotenv";
-import { FAKE_XORDIA_HISTORY } from "./data";
+import { FAKE_XORDIA_HISTORY } from "./data.js";
 
 config();
 
@@ -15,7 +15,7 @@ async function setupClient() {
       scheme: "https",
       host: process.env.WEAVIATE_URL,
       apiKey: new ApiKey(process.env.WEAVIATE_API_KEY),
-      headers: { "X-OpenAI-Api-Key": process.env.OPENAI_API_KEY },
+      headers: { "X-OpenAI-Api-Key": process.env.OPENAI_KEY },
     });
   } catch (err) {
     console.error("error >>>", err.message);
@@ -84,6 +84,7 @@ async function migrate(shouldDeleteAllDocuments = false) {
   
     // loop over data, 
     for (const document of data) {
+      console.log(document)
         // create an object for each document
       const obj = {
         class: process.env.DATA_CLASSNAME,
@@ -108,6 +109,7 @@ async function migrate(shouldDeleteAllDocuments = false) {
     // helper function to delete documents (limited to 200 entries per time)
     // larger batching technique would be needed for larger database
   async function deleteAllDocuments() {
+
     const client = await setupClient();
     const documents = await client.graphql
       .get()
