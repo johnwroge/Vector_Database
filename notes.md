@@ -160,6 +160,8 @@ Ran into multiple problem with differences in api key names throughout files (si
 ### Output
 
 
+``` npm run start "migrate" ```
+
 {
   date: '2400',
   title: 'Birth of Zephyr',
@@ -179,14 +181,16 @@ Ran into multiple problem with differences in api key names throughout files (si
   text: 'The Nexus initiates a project to connect all lifeforms across the universe from its Hub, redefining the concepts of unity, life interconnectivity, and collective consciousness.',
   category: 'EVENT'
 }
+
+
+```npm run start "query" "what are the 3 most impressive achievements of humanity in the story?"```
+
+
 johns-mbp:weaviate-vector-database johnwroge$ npm run start "query" "what are the 3 most impressive achievements of humanity in the story?"
 
 > weaviate-vector-database@1.0.0 start
 > node src/index.js query what are the 3 most impressive achievements of humanity in the story?
 
-Querying database
-(node:89105) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
-(Use `node --trace-deprecation ...` to show where the warning was created)
 Based on the given context, the three most impressive achievements of humanity are:
 
 1. Discovery of Gaia: The sentient planet Gaia, discovered in 3605, challenges previous definitions of life and intelligence. Its existence nurtures an entire ecosystem of evolved lifeforms and offers unparalleled insights into the nature of life and intelligence. This discovery expands humanity's understanding of sentient existence and marks a significant achievement in exploring the boundaries of life.
