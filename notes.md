@@ -160,15 +160,6 @@ Ran into multiple problem with differences in api key names throughout files (si
 ### Output
 
 
-johns-mbp:weaviate-vector-database johnwroge$ npm run start "migrate"
-
-> weaviate-vector-database@1.0.0 start
-> node src/index.js migrate
-
-(node:89080) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
-(Use `node --trace-deprecation ...` to show where the warning was created)
-schema already exists
-Inserting documents
 {
   date: '2400',
   title: 'Birth of Zephyr',
