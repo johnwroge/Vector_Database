@@ -1,48 +1,55 @@
 
-<!-- What are vectors? -->
+# What are vectors? 
 
 Vectors are essentially a one dimensional array of numbers. They allow us to perform complex 
-calculations and operations that drive AI models.
+calculations and operations that drive AI models. 
+
+Examples:
 
 vector3 - 3d vector
 vector4 - 4d vector
 
-<!-- Why do we need vector databases? -->
+# Why do we need vector databases? 
 
 A vector database is a optimized for large amounts of vector data and specific operations. A normal database would not be able to handle the amount of operations on the data. So we use them for performance reasons. 
 
-<!-- Complex Math Operations -->
+# Complex Math Operations 
 
 Designed to perform complex operations on vectors like filtering and locating nearby vectors e.g. cosine similarity (measure of how similar two vectors are)
 
-<!-- Specialized Vector Indices -->
+# Specialized Vector Indices 
 
 Specialized vector indices are used to make retrieval easier and more deterministic, less stochastic (probabilistic). 
 
-<!-- Compact Storage -->
+# Compact Storage #
 
 Optimized storage reduces load and query latency. 
 
-<!-- Sharding -->
+# Sharding 
 
 Distributing data across multiple machines. SQL databases do this but require more effort to scale out. Vector databases have sharding built into their architecture.
 
-<!-- Create cluster on Weaviate -->
+## Create cluster on Weaviate 
 
 1. Create account
 2. Create cluster in free tier with authentication enabled
 3. Get Weaviate URL and Weaviate API key
 
-<!-- Setting up vector database -->
+## Setting up vector database 
 
 you can clone repo, but I followed the steps to build everything
+
 ```
-mkdir weaviate-vector-database && cd weaviate-vector-database
-npm init -y && npm install dotenv openai weaviate-ts-client
+mkdir weaviate-vector-database
+cd weaviate-vector-database
+npm init -y
+npm install dotenv openai weaviate-ts-client
 mkdir src
 ```
 
 Create .env (add .env to gitignore)
+
+Use single quotes and verify OpenAI env variable names in corresponding files
 
 OPENAI_KEY="<OPENAI_API_KEY>"
 WEAVIATE_API_KEY="<WEAVIATE_API_KEY>"
@@ -50,7 +57,7 @@ WEAVIATE_URL="<WEAVIATE_URL>"
 DATA_CLASSNAME="Document"
 
 
-<!-- Helper functions -->
+## Helper functions 
 
 Need functionality to:
 
@@ -58,17 +65,16 @@ Need functionality to:
 2. Batch vectorize and upload documents
 3. Query the most similar items
 
-4. and a main function that performs these operations
+4. We also need a main function that performs these operations
 
-<!-- Setup Client -->
+## Setup Client
 
 in src directory created database.js file. 
 
-creates a connection to weaviate and a client
+This file creates a connection to weaviate and a client instance.
+It also uses OpenAI Ada model to vectorize data.
 
-also uses OpenAI Ada model to vectorize data
-
-<!-- Migrating data -->
+## Migrating data
 
 We have to import data from separate library here into src/data.js
 
@@ -76,23 +82,28 @@ https://github.com/ovieokeh/pinecone-ai-vector-database/blob/main/src/data.js
 
 added migrate function is db.js
 
-<!-- Adding documents -->
+This is the data we will use to vectorize, store in weaviate and then send to Open AI
+
+## Adding documents
 
 time to vectorize and upload documents
 
-1. raw test string is converted to vectors using Ada model
+1. raw test string is converted to vectors using Open AI Ada model
 2. converted vectors are uploaded to Weaviate database
 
-<!-- Deleting Documents -->
+## Deleting Documents
 
-deletealldocuments can be used for this smaller data size
+deletealldocuments function can be used for this smaller data size, but would not be appropriate
+in larger databases (limited to ~200)
 
 
-<!-- Adding Querying Functions to DB -->
+## Adding Querying Functions to DB
 
 Added querying functions
 
-'''migrate our data so we can query it in the next section. Open your terminal and run npm run start "migrate".'''
+migrate our data so we can query it in the next section. Open your terminal and run 
+
+```npm run start "migrate"```
 
 Ran into issue and had to update openai and change how env variable was used
 
@@ -119,29 +130,26 @@ const openai = new OpenAI({
 ```
 
 
-<!-- Combining Vector Embeddings and AI -->
+## Combining Vector Embeddings and AI
 
 Words and phrases are represented as high dimensional vectors which can be compared to get
 meanings and relationships. 
 
 Vector database basically acts as a librarian for the AI model and allows for quick retrieval of this information. 
 
-<!-- AI Model Setup -->
+## AI Model Setup
 
 Created model.js file (referenced as data.js in tutorial) used to interact with open ai
 
-<!-- Querying our data -->
+## Querying our data
 
 index.js file created to query vector database and then map over returned documents to send to open ai 
 for completion
 
-```
-The query is sent to your Weaviate vector database where it is vectorized, compared to other similar vectors, and returns the 50 most similar ones based on their text. This context data is then formatted and sent along with your query to OpenAI’s GPT-3.5 model where it is processed and a response is generated.
-
-```
+"The query is sent to your Weaviate vector database where it is vectorized, compared to other similar vectors, and returns the 50 most similar ones based on their text. This context data is then formatted and sent along with your query to OpenAI’s GPT-3.5 model where it is processed and a response is generated."
 
 
-<!-- Testing our query -->
+## Testing our query
 
 Ran into multiple problem with differences in api key names throughout files (single strings, no <>). Also had to run this command multiple times because the files weren't added to the database
 
@@ -149,6 +157,7 @@ Ran into multiple problem with differences in api key names throughout files (si
 
 ```npm run start "query" "what are the 3 most impressive achievements of humanity in the story?"```
 
+## Output
 
 
 johns-mbp:weaviate-vector-database johnwroge$ npm run start "migrate"
