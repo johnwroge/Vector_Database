@@ -2,10 +2,6 @@
 
 This project demonstrates the setup and use of a vector database, specifically using [Weaviate](https://weaviate.io/) and OpenAI, for complex AI-driven operations. Vectors enable enhanced calculations essential for AI models, and vector databases optimize data storage and retrieval for high-performance vector-based operations. Here is a link to a more detailed walkthrough of using Weaviate. https://blog.logrocket.com/implement-vector-database-ai/
 
----
-
-Personal notes are in notes.md that cover some of the theory and problems I ran into with getting the tutorial to work
-correctly. A few problems encountered were a mismatch between variable names for environment variables, not correctly migrating the data.js file into the database before running the final command, and file names being incorrect in different parts of the tutorial. 
 =======
 ## Table of Contents
 1. [Introduction to Vectors](#introduction-to-vectors)
