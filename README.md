@@ -64,7 +64,6 @@ OPENAI_KEY="<OPENAI_API_KEY>"
 WEAVIATE_API_KEY="<WEAVIATE_API_KEY>"
 WEAVIATE_URL="<WEAVIATE_URL>"
 DATA_CLASSNAME="Document"
->>>>>>> 9dea306 (readme)
 
 
 ### Helper functions 
